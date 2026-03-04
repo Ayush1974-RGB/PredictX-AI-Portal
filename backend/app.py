@@ -1,6 +1,5 @@
 """
 PredictX AI Portal — Flask Backend
-Run locally: python app.py
 """
 
 from flask import Flask
@@ -8,24 +7,17 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
 
-    # Secret key
-    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret-2024")
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret")
 
-    # Enable CORS
-    CORS(
-        app,
-        resources={r"/api/*": {"origins": "*"}},
-        supports_credentials=True
-    )
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-    # Import route blueprints
+    # Import routes
     from routes.auth import auth_bp
     from routes.gold import gold_bp
     from routes.fraud import fraud_bp
@@ -39,32 +31,20 @@ def create_app():
     app.register_blueprint(spam_bp, url_prefix="/api/spam")
     app.register_blueprint(rainfall_bp, url_prefix="/api/rainfall")
 
-    # Root route
     @app.route("/")
     def home():
-        return {
-            "message": "PredictX AI Portal Backend Running 🚀"
-        }
+        return {"message": "PredictX Backend Running 🚀"}
 
-    # Health check
     @app.route("/api/health")
     def health():
-        return {
-            "status": "ok",
-            "message": "PredictX AI Portal backend running 🚀"
-        }
+        return {"status": "ok"}
 
     return app
 
 
-# Create Flask app
 app = create_app()
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-
-    print("\n🧠 PredictX AI Portal — Backend")
-    print(f"Running on port: {port}")
-
     app.run(host="0.0.0.0", port=port)
