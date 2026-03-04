@@ -40,7 +40,11 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
+
+    port = int(os.environ.get("PORT", 5000))
+
     print("\n🧠 PredictX AI Portal — Backend")
-    print("   Running at: http://localhost:5000")
-    print("   API Health:  http://localhost:5000/api/health\n")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    print(f"   Running at: http://0.0.0.0:{port}")
+    print(f"   API Health: http://0.0.0.0:{port}/api/health\n")
+
+    app.run(host="0.0.0.0", port=port)
