@@ -36,7 +36,13 @@ import joblib
 
 warnings.filterwarnings('ignore')
 os.makedirs('models', exist_ok=True)
+import os
 
+# Skip training if data files not present (e.g. on deployment server)
+required = ['data/email_spam.csv','data/Rainfall.csv','data/gold_data.csv','data/card_transdata.csv']
+if not all(os.path.exists(f) for f in required):
+    print("Data files not found — skipping training. Using pre-trained models.")
+    exit(0)
 
 # ════════════════════════════════════════════════════════
 #  1. SPAM  (TF-IDF + Logistic Regression)
