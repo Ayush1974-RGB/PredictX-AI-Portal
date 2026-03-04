@@ -2,18 +2,15 @@
 PredictX AI Portal — Flask Backend
 Run locally: python app.py
 """
+
 from flask import Flask
 from flask_cors import CORS
-import os, joblib
-
+import os
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "models", "model.pkl")
 
-model = joblib.load(MODEL_PATH)
 
 def create_app():
     app = Flask(__name__)
@@ -21,10 +18,10 @@ def create_app():
     # Secret key
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret-2024")
 
-    # CORS configuration
+    # Enable CORS
     CORS(
         app,
-        resources={r"/api/*": {"origins": "*"}},  # allow all for now
+        resources={r"/api/*": {"origins": "*"}},
         supports_credentials=True
     )
 
@@ -42,7 +39,14 @@ def create_app():
     app.register_blueprint(spam_bp, url_prefix="/api/spam")
     app.register_blueprint(rainfall_bp, url_prefix="/api/rainfall")
 
-    # Health check endpoint
+    # Root route
+    @app.route("/")
+    def home():
+        return {
+            "message": "PredictX AI Portal Backend Running 🚀"
+        }
+
+    # Health check
     @app.route("/api/health")
     def health():
         return {
@@ -53,8 +57,9 @@ def create_app():
     return app
 
 
-# Create app instance
+# Create Flask app
 app = create_app()
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
