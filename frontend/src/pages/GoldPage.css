@@ -1,0 +1,129 @@
+/* GoldPage.css */
+.module-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.module-header h1 {
+  font-family: var(--font-display); font-size: clamp(1.5rem,3vw,2rem);
+  font-weight: 800; letter-spacing: -0.03em;
+}
+.module-header p { color: var(--text-2); font-size: 0.875rem; margin-top: 0.25rem; }
+.module-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(0,245,160,0.08); border: 1px solid rgba(0,245,160,0.2);
+  border-radius: 100px; font-size: 0.78rem; color: #00f5a0;
+  white-space: nowrap; flex-shrink: 0;
+}
+.badge-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #00f5a0; animation: blink 1.4s ease-in-out infinite;
+}
+
+.gold-info-strip { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem; }
+.gold-info-chip {
+  padding: 0.35rem 0.85rem;
+  background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.2);
+  border-radius: 100px; font-size: 0.78rem; color: #f5c842; font-weight: 500;
+}
+
+.card-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
+
+/* Gold Input Grid */
+.gold-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+@media (max-width: 560px) { .gold-input-grid { grid-template-columns: 1fr; } }
+
+.gold-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.gold-field-label { font-size: 0.82rem; font-weight: 600; }
+.gold-field-hint  { font-size: 0.7rem; color: var(--text-muted); line-height: 1.4; }
+.gold-field-range { font-size: 0.67rem; color: var(--text-muted); }
+
+.gold-input-wrap {
+  display: flex; align-items: center;
+  background: rgba(245,200,66,0.05);
+  border: 1.5px solid rgba(245,200,66,0.2);
+  border-radius: 10px; overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.gold-input-wrap:focus-within {
+  border-color: #f5c842;
+  box-shadow: 0 0 0 3px rgba(245,200,66,0.15);
+}
+.gold-prefix, .gold-suffix {
+  padding: 0 0.6rem;
+  font-family: var(--font-display); font-size: 0.82rem; font-weight: 700;
+  color: #f5c842; background: rgba(245,200,66,0.08);
+  align-self: stretch; display: flex; align-items: center; white-space: nowrap;
+}
+.gold-prefix { border-right: 1px solid rgba(245,200,66,0.15); }
+.gold-suffix  { border-left:  1px solid rgba(245,200,66,0.15); font-size: 0.7rem; color: var(--text-muted); }
+
+.gold-num-input {
+  flex: 1; min-width: 0; padding: 0.65rem 0.75rem;
+  background: transparent; border: none; outline: none;
+  color: var(--text-1); font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+}
+.gold-num-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
+.gold-num-input::-webkit-inner-spin-button,
+.gold-num-input::-webkit-outer-spin-button { opacity: 0.4; }
+
+.gold-select {
+  -webkit-appearance: none; appearance: none; cursor: pointer; width: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5c842' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.75rem center;
+  padding-right: 2rem !important; font-size: 0.85rem !important; font-weight: 500 !important;
+}
+.gold-select option { background: var(--bg-deep); }
+
+/* Live bar */
+.gold-live-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.1rem; padding: 0.65rem 1rem;
+  background: rgba(245,200,66,0.07); border: 1px dashed rgba(245,200,66,0.3);
+  border-radius: 10px; animation: fadein 0.3s ease;
+}
+.gold-live-label { font-size: 0.78rem; color: var(--text-2); }
+.gold-live-val   { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: #f5c842; }
+
+/* Price display */
+.gold-price-display { text-align: center; padding: 1.5rem 0.5rem; }
+.gold-price-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: #f5c842; margin-bottom: 0.75rem; }
+.gold-price-val   { font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: #f5c842; letter-spacing: -0.04em; line-height: 1; }
+.gold-price-unit  { font-size: 0.9rem; color: var(--text-2); margin-top: 0.25rem; }
+
+.festival-badge {
+  display: inline-block; margin: 0.75rem auto 0;
+  padding: 0.4rem 0.875rem;
+  background: rgba(245,200,66,0.12); border: 1px solid rgba(245,200,66,0.25);
+  border-radius: 100px; font-size: 0.78rem; color: #f5c842;
+}
+
+/* Breakdown grid */
+.gold-breakdown {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1.25rem;
+}
+.gold-break-item {
+  background: rgba(245,200,66,0.06); border: 1px solid rgba(245,200,66,0.12);
+  border-radius: 10px; padding: 0.6rem 0.875rem;
+  display: flex; flex-direction: column; gap: 0.15rem;
+}
+.gold-break-item span   { font-size: 0.72rem; color: var(--text-muted); }
+.gold-break-item strong { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; }
+
+/* Ref box */
+.gold-ref-box {
+  margin-top: 1.5rem; background: rgba(245,200,66,0.05);
+  border: 1px solid rgba(245,200,66,0.15); border-radius: 12px; padding: 1rem;
+}
+.gold-ref-title {
+  font-size: 0.75rem; font-weight: 600; color: #f5c842;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+}
+.gold-ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.gold-ref-item {
+  background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.5rem 0.75rem;
+  display: flex; flex-direction: column; gap: 0.15rem;
+}
+.gold-ref-item span   { font-size: 0.72rem; color: var(--text-muted); }
+.gold-ref-item strong { font-family: var(--font-display); font-size: 0.85rem; }

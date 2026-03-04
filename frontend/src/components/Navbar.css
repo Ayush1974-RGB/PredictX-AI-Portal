@@ -1,0 +1,59 @@
+/* Navbar.css */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.brand-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.nav-brand span {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.1rem; letter-spacing: -0.02em;
+}
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-user {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-glass); border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.nav-avatar {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.75rem; color: #000;
+}
+.nav-username { font-size: 0.875rem; font-weight: 500; }
+.btn-logout {
+  padding: 0.5rem 1rem;
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text-2);
+  font-family: var(--font-body); font-size: 0.85rem;
+  cursor: pointer; transition: all 0.3s;
+}
+.btn-logout:hover { border-color: var(--red); color: var(--red); }
+.dark-toggle {
+  width: 44px; height: 24px;
+  background: var(--bg-card2); border: 1px solid var(--border);
+  border-radius: 100px; position: relative; cursor: pointer;
+  transition: background 0.3s; flex-shrink: 0;
+}
+.dark-toggle.light { background: var(--cyan); }
+.dark-toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; background: var(--text-1);
+  border-radius: 50%; transition: transform 0.3s;
+}
+.dark-toggle.light::after { transform: translateX(20px); background: #000; }

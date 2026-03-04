@@ -1,0 +1,18 @@
+/* SpamPage.css */
+.spam-examples { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.example-btn {
+  padding: 0.4rem 0.875rem; border-radius: 8px; font-size: 0.8rem;
+  cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+  border: 1px solid;
+}
+.example-btn.spam  { background: rgba(255,140,66,0.1); border-color: rgba(255,140,66,0.3); color: #ff8c42; }
+.example-btn.ham   { background: rgba(0,245,160,0.1);  border-color: rgba(0,245,160,0.3);  color: #00f5a0; }
+.example-btn.clear { background: rgba(255,255,255,0.04); border-color: var(--border); color: var(--text-2); }
+.example-btn:hover { filter: brightness(1.2); }
+
+.spam-verdict-icon  { font-size: 4rem; animation: pop 0.5s cubic-bezier(0.25,0.46,0.45,0.94); margin-bottom: 0.5rem; }
+.spam-verdict-label { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; }
+
+.email-preview { margin-top: 1.25rem; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; text-align: left; }
+.email-preview-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--border); font-size: 0.82rem; color: var(--text-2); }
+.email-preview-body   { padding: 0.75rem 1rem; font-size: 0.82rem; color: var(--text-2); line-height: 1.6; max-height: 100px; overflow-y: auto; }
