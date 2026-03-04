@@ -13,16 +13,12 @@ def create_app():
 
     # FIXED CORS
     
-    CORS(
+   CORS(
         app,
-        resources={
-            r"/api/*": {
-                "origins": [
-                    "http://localhost:3000",
-                    "https://predictx-sigma.vercel.app"
-                ]
-            }
-        },
+        origins=[
+            "http://localhost:3000",
+            "https://predictx-sigma.vercel.app"
+        ],
         supports_credentials=True
     )
 
