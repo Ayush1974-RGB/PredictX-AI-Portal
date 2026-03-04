@@ -4,12 +4,16 @@ Run locally: python app.py
 """
 from flask import Flask
 from flask_cors import CORS
-import os
+import os, joblib
+
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "models", "model.pkl")
 
+model = joblib.load(MODEL_PATH)
 
 def create_app():
     app = Flask(__name__)
