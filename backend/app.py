@@ -11,15 +11,8 @@ def create_app():
 
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret")
 
-    # Correct CORS configuration
-    CORS(
-        app,
-        resources={r"/api/*": {"origins": [
-            "http://localhost:3000",
-            "https://predictx-sigma.vercel.app"
-        ]}},
-        supports_credentials=True
-    )
+    # Allow all origins — safe for a portfolio project
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Import routes
     from routes.auth import auth_bp

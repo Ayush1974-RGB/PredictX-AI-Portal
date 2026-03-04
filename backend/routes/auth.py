@@ -1,28 +1,17 @@
 """
 routes/auth.py — Authentication: Signup, Login, JWT Verify
+In-memory user store (no filesystem dependency — works on Render)
 """
 from flask import Blueprint, request, jsonify
-import jwt, bcrypt, datetime, os, json
+import jwt, bcrypt, datetime, os
 
 auth_bp = Blueprint('auth', __name__)
 
-USERS_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'users.json')
-
-# ── helpers ────────────────────────────────────────────────────
-def load_users():
-    os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
-    if not os.path.exists(USERS_FILE):
-        return {}
-    with open(USERS_FILE) as f:
-        return json.load(f)
-
-def save_users(users):
-    os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
-    with open(USERS_FILE, 'w') as f:
-        json.dump(users, f, indent=2)
+# In-memory user store — persists as long as server is running
+USERS = {}
 
 def make_token(email):
-    secret = os.getenv('SECRET_KEY', 'predictx-dev-secret-2024')
+    secret  = os.getenv('SECRET_KEY', 'predictx-dev-secret-2024')
     payload = {
         'email': email,
         'exp':   datetime.datetime.utcnow() + datetime.timedelta(hours=24),
@@ -30,7 +19,7 @@ def make_token(email):
     }
     return jwt.encode(payload, secret, algorithm='HS256')
 
-# ── routes ─────────────────────────────────────────────────────
+
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
     d        = request.get_json()
@@ -42,19 +31,16 @@ def signup():
         return jsonify({'error': 'All fields are required'}), 400
     if len(password) < 6:
         return jsonify({'error': 'Password must be at least 6 characters'}), 400
-
-    users = load_users()
-    if email in users:
+    if email in USERS:
         return jsonify({'error': 'Email already registered'}), 409
 
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-    users[email] = {
-        'username':   username,
-        'email':      email,
+    USERS[email] = {
+        'username':      username,
+        'email':         email,
         'password_hash': pw_hash,
-        'created_at': datetime.datetime.utcnow().isoformat()
+        'created_at':    datetime.datetime.utcnow().isoformat()
     }
-    save_users(users)
 
     return jsonify({
         'message': 'Account created',
@@ -72,11 +58,9 @@ def login():
     if not email or not password:
         return jsonify({'error': 'Email and password required'}), 400
 
-    users = load_users()
-    user  = users.get(email)
+    user = USERS.get(email)
     if not user:
         return jsonify({'error': 'Invalid credentials'}), 401
-
     if not bcrypt.checkpw(password.encode(), user['password_hash'].encode()):
         return jsonify({'error': 'Invalid credentials'}), 401
 
@@ -95,8 +79,7 @@ def verify():
     try:
         secret  = os.getenv('SECRET_KEY', 'predictx-dev-secret-2024')
         payload = jwt.decode(token, secret, algorithms=['HS256'])
-        users   = load_users()
-        user    = users.get(payload['email'])
+        user    = USERS.get(payload['email'])
         if not user:
             return jsonify({'error': 'User not found'}), 404
         return jsonify({'user': {'username': user['username'], 'email': payload['email']}}), 200
