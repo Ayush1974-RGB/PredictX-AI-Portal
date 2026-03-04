@@ -12,14 +12,21 @@ def create_app():
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret")
 
     # FIXED CORS
+    
     CORS(
         app,
-        resources={r"/api/*": {"origins": [
-            "http://localhost:3000",
-            "https://predictx-sigma.vercel.app"
-        ]}},
+        resources={
+            r"/api/*": {
+                "origins": [
+                    "http://localhost:3000",
+                    "https://predictx-sigma.vercel.app"
+                ]
+            }
+        },
         supports_credentials=True
     )
+
+    return app
 
     # Import routes
     from routes.auth import auth_bp
