@@ -1,7 +1,3 @@
-"""
-PredictX AI Portal — Flask Backend
-"""
-
 from flask import Flask
 from flask_cors import CORS
 import os
@@ -15,10 +11,15 @@ def create_app():
 
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret")
 
-    CORS(app, resources={r"/api/*": {"origins": [
-    "http://localhost:3000",
-    "https://predictx.vercel.app"
-]}})
+    # FIXED CORS
+    CORS(
+        app,
+        resources={r"/api/*": {"origins": [
+            "http://localhost:3000",
+            "https://predictx-sigma.vercel.app"
+        ]}},
+        supports_credentials=True
+    )
 
     # Import routes
     from routes.auth import auth_bp
