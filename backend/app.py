@@ -12,7 +12,13 @@ def create_app():
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "predictx-dev-secret")
 
     # Allow all origins — safe for a portfolio project
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    # Allow frontend requests
+    CORS(
+         app,
+         resources={r"/api/*": {"origins": "*"}},
+         supports_credentials=True,
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    )
 
     # Import routes
     from routes.auth import auth_bp
