@@ -3,7 +3,8 @@ import axios from "axios";
 
 // Backend URL from Vercel environment variable
 const BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+  process.env.REACT_APP_API_URL ||
+  "https://predictx-ai-portal-production-8a85.up.railway.app/api";
 
 // Create axios instance
 const instance = axios.create({
